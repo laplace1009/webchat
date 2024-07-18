@@ -22,6 +22,7 @@ class Client {
             } else {
                 this.chatBasis.insertAdjacentHTML('beforeend', `<span>${msg.name}: ${msg.message}</span>`)
             }
+            chatBox.scrollTop = chatBox.scrollHeight
         }
         this.webSocket.onclose = (e) => {
             if (e.wasClean) alert(`Clean closed connection ${e.code}, ${e.reason}`)
@@ -32,9 +33,10 @@ class Client {
 }
 
 
-const ws = new Client("ws://125.130.106.78:8080/ws", '')
+const ws = new Client("ws://127.0.0.1:8080/ws", '')
 const buttonElem = document.querySelector('button');
 const textElem = document.getElementById('message-input')
+const chatBox = document.getElementById('chat-box')
 
 function sendMessage() {
     if (ws.webSocket.readyState === WebSocket.OPEN) {
